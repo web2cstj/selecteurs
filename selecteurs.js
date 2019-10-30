@@ -1,0 +1,296 @@
+/*jslint browser:true,esnext:true */
+class App {
+    static init() {
+	}
+
+    static alea(sujet) {
+        if (sujet instanceof Array) {
+        	return sujet[this.alea(sujet.length)];
+		} else {
+			return Math.floor(Math.random() * sujet);
+		}
+    }
+    static afficherQuestion(niveau) {
+        var resultat, selecteur, mode;
+        resultat = "";
+        selecteur = new Selecteur(niveau);
+        resultat += '<table border="1">';
+        if (document.getElementById("mode_selecteur").checked === true) {
+            mode = 0;
+        } else if (document.getElementById("mode_signification").checked === true) {
+            mode = 1;
+        } else {
+            mode = App.alea(2);
+        }
+        if (mode === 1) {
+            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td>' + selecteur.contenu + '</td></tr>';
+            resultat += '<tr class="signification"><th>Signification :</th><td></td></tr>';
+        } else {
+            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td></td></tr>';
+            resultat += '<tr class="signification"><th>Signification :</th><td>' + Selecteur.traduire(selecteur.contenu) + '</td></tr>';
+        }
+        resultat += '</table>';
+        document.getElementById("affichage").innerHTML = resultat + '<label for="solution" onclick="App.afficherSolution()">Voir la solution</label>';
+        document.getElementById("affichage").selecteur = selecteur.contenu;
+    }
+    static afficherSolution() {
+        var resultat, c;
+        resultat = "";
+        c = document.getElementById("affichage").selecteur;
+        resultat += '<table border="1">';
+        resultat += '<tr class="selecteur"><th>Sélecteur : </th><td>' + c + '</td></tr>';
+        resultat += '<tr class="signification"><th>Signification : </th><td>' + Selecteur.traduire(c) + '</td></tr>';
+        resultat += '</table>';
+        document.getElementById("affichage").innerHTML = resultat;
+    }
+}
+App.init();
+
+class Selecteur {
+	constructor(niveau) {
+		niveau = parseInt(niveau) || (App.alea(3) + 1);
+		this.niveau = niveau;
+		this.contenu = this.composer(niveau);
+	}
+    composer(niveau) {
+        var resultat;
+		var ops = ["  ", " > ", ", ", " + ", " ~ "];
+        resultat = "";
+        if (niveau === 1) {
+			return this.composerBalise();
+		} else if (niveau === 2) {
+			resultat += this.composer(1);
+			while (Selecteur.calculerComplexite(resultat) < (App.alea(3) + 2)) {
+				let op = App.alea(ops);
+				resultat += op + this.composer(1);
+			}
+			return resultat;
+		} else if (niveau === 3) {
+			resultat += this.composer(1);
+			while (Selecteur.calculerComplexite(resultat) < (App.alea(6) + 10)) {
+				let op = App.alea(ops);
+				resultat += op + this.composer(1);
+			}
+        	return resultat;
+		}
+    }
+    composerBalise() {
+        var resultat, chances;
+        resultat = "";
+        if (App.alea(4) > 0) {	// On met une balise
+            resultat += App.alea(this.balises).nom;
+        }
+        if (App.alea(6) > 0) {	// On choisit entre une balise et un id
+            chances = 3;
+            while (App.alea(chances) === 0) {
+                resultat += "." + App.alea(this.classes).nom;
+                chances *= 2;
+            }
+        } else {
+            resultat += "#" + App.alea(this.ids).nom;
+        }
+        if (resultat === "") {
+            return this.composerBalise();
+        }
+        return resultat;
+    }
+    get signification() {
+        var resultat;
+		Selecteur.traduire(this.contenu);
+        return resultat;
+    }
+    static traduire(selecteur) {
+        var selecteur2, resultat, i, n;
+        selecteur = selecteur.replace(/, +/g, ",");
+        selecteur2 = selecteur.split(",");
+        resultat = [];
+        for (i = 0, n = selecteur2.length; i < n; i += 1) {
+            resultat.push(this.traduireImbrique(selecteur2[i]));
+        }
+        resultat = resultat.join(' <span class="separateur ainsi">ainsi que</span> ');
+        return resultat.substr(0, 1).toUpperCase() + resultat.substr(1);
+    }
+    static traduireImbrique(selecteur) {
+        var selecteur2, resultat, i, separateurs;
+        selecteur = selecteur.replace(/ +/g, " ");
+        selecteur2 = selecteur.split(/ *\> *| *\+ *| *\~ *| +/g);
+        separateurs = selecteur.match(/ *\> *| *\+ *| *\~ *| +/g);
+        resultat = [];
+        for (i = selecteur2.length - 1; i > 0; i -= 1) {
+            resultat.push(this.traduireSimple(selecteur2[i]));
+			if (separateurs[i - 1].match(/^ *> *$/)) {
+				resultat.push(' <span class="separateur parent">dont le parent est</span> ');
+			} else if (separateurs[i - 1].match(/^ *\+ *$/)) {
+				resultat.push(' <span class="separateur suivant">précédée immédiatement par</span> ');
+			} else if (separateurs[i - 1].match(/^ *\~ *$/)) {
+				resultat.push(' <span class="separateur frere">se trouvant après</span> ');
+			} else {
+				resultat.push(' <span class="separateur imbrique">se trouvant dans</span> ');
+			}
+        }
+        resultat.push(this.traduireSimple(selecteur2[i]));
+        return resultat.join("");
+    }
+    static traduireSimple(selecteur) {
+        var resultat, selecteur2, nom, dernier;
+        resultat = "";
+        selecteur2 = selecteur.split("#");
+        if (selecteur2.length > 1) {
+            resultat = "n'importe quelle balise";
+            if (selecteur2[0] !== "" && selecteur2[0] !== "*") {
+                resultat = 'la balise <span class="balise">&lt;' + selecteur2[0] + '&gt;</span>';
+            }
+            resultat += " ayant le id «" + selecteur2[1] + "»";
+        } else {
+            selecteur2 = selecteur2[0].split(".");
+            nom = selecteur2.shift();
+            if (nom === "" || nom === "*") {
+                resultat = "une balise";
+            } else {
+//                resultat = "une balise &lt;" + nom + "&gt;";
+                resultat = 'une balise <span class="balise">&lt;' + nom + '&gt;</span>';
+            }
+            if (selecteur2.length > 0) {
+                if (selecteur2.length === 1) {
+                    resultat += " ayant la classe «" + selecteur2[0] + "»";
+                } else {
+                    dernier = selecteur2.pop();
+                    resultat += " ayant les classes «" + selecteur2.join("», «") + "» et «" + dernier + "»";
+                }
+            }
+        }
+        return resultat;
+    }
+	get specificite() {
+        return Selecteur.calculerSpecificite(this.contenu);
+    }
+	get complexite() {
+        return Selecteur.calculerComplexite(this.contenu);
+    }
+	static compter(txt, x) {
+		var resultat;
+		resultat = txt.match(x);
+		if (resultat) {
+			return resultat.length;
+		} else {
+			return 0;
+		}
+    }
+	static calculerSpecificite(selecteur) {
+		var resultat = 0, x;
+		// traiter les :not
+		x = /\:not\(([^\)]*)\)/gi;
+		selecteur = selecteur.replace(x, " $1");
+
+		// traiter les ()
+		x = /\(([^\)]*)\)/gi;
+		selecteur = selecteur.replace(x, "");
+
+		// Les attributs
+		x = /\[[^\]]+\]/gi;
+		resultat += this.compter(selecteur, x) * 10;
+		selecteur = selecteur.replace(x, "");
+
+		// Les id
+		x = /\#[a-z0-9\-\_]+/gi;
+		resultat += this.compter(selecteur, x) * 100;
+		selecteur = selecteur.replace(x, "");
+
+		// Les classes
+		x = /\.[a-z0-9\-\_]+/gi;
+		resultat += this.compter(selecteur, x) * 10;
+		selecteur = selecteur.replace(x, "");
+
+		// Les pseudo-elements
+		x = /\:\:?(?:after|before|cue|first\-letter|first\-line|selection)/gi;
+		resultat += this.compter(selecteur, x) * 1;
+		selecteur = selecteur.replace(x, "");
+
+		// Les pseudo-classes
+		x = /\:[a-z0-9\-]+/gi;
+		resultat += this.compter(selecteur, x) * 10;
+		selecteur = selecteur.replace(x, "");
+
+		// Les types
+		x = /[a-z0-9\-]+/gi;
+		resultat += this.compter(selecteur, x) * 1;
+		selecteur = selecteur.replace(x, "");
+
+		return resultat;
+    }
+	static calculerComplexite(selecteur) {
+		var resultat = 0, x;
+		// traiter les :not
+		x = /\:not\(([^\)]*)\)/gi;
+		selecteur = selecteur.replace(x, ":not $1 ");
+
+		// traiter les ()
+		x = /\(([^\)]*)\)/gi;
+		selecteur = selecteur.replace(x, "");
+
+		// Les attributs
+		x = /\[[^\]]+\]/gi;
+		resultat += this.compter(selecteur, x);
+		selecteur = selecteur.replace(x, "");
+
+		// Les id, les classes, les pseudo-classes, les pseudo-elements
+		x = /[\#\.\:]+[a-z0-9\-\_]+/gi;
+		resultat += this.compter(selecteur, x);
+		selecteur = selecteur.replace(x, "");
+
+		// Les types
+		x = /[a-z0-9\-\_]+/gi;
+		resultat += this.compter(selecteur, x);
+		selecteur = selecteur.replace(x, "");
+
+		return resultat;
+    }
+	static init() {
+		this.prototype.balises = [
+			{nom: "*"}, {nom: "td"}, {nom: "div"}, {nom: "span"}, {nom: "strong"},
+			{nom: "em"}, {nom: "p"}, {nom: "li"}, {nom: "ol"}, {nom: "table"}, {nom: "h1"},
+			{nom: "h2"}, {nom: "h3"}, {nom: "header"}, {nom: "footer"}, {nom: "section"},
+			{nom: "article"}, {nom: "nav"}, {nom: "aside"}
+		];
+		this.prototype.classes = [
+			{nom: "important"}, {nom: "gauche"}, {nom: "publicite"}, {nom: "contenu"},
+			{nom: "droite"}, {nom: "haut"}, {nom: "bas"}, {nom: "entete"}, {nom: "pied"},
+			{nom: "portrait"}, {nom: "section"}
+		];
+		this.prototype.ids = [
+			{nom: "courant"}, {nom: "interface"}, {nom: "menu"}, {nom: "a208g32"},
+			{nom: "nom"}, {nom: "prenom"}, {nom: "formulaire"}, {nom: "recherche"},
+			{nom: "gauche"}, {nom: "droite"}, {nom: "entete"}, {nom: "pied"}, {nom: "principal"}
+		];
+		this.prototype.pseudoclasses = [
+			{nom: "first-child"}, {nom: "last-child"}, {nom: "hover"}, {nom: "link"},
+			{nom: "active"}, {nom: "visited"}, {nom: "empty"}, {nom: "enabled"}, {nom: "disabled"},
+			{nom: "checked"}, {nom: "first-of-type"}, {nom: "last-of-type"}, {nom: "focus"},
+			{nom: "in-range"}, {nom: "out-of-range"}, {nom: "valid"}, {nom: "invalid"},
+			{nom: "lang(language)"}, {nom: "not(selector)"}, {nom: "nth-child(n)"},
+			{nom: "nth-last-child(n)"}, {nom: "nth-last-of-type(n)"}, {nom: "nth-of-type(n)"},
+			{nom: "only-of-type"}, {nom: "only-child"}, {nom: "optional"}, {nom: "out-of-range"},
+			{nom: "read-only"}, {nom: "read-write"}, {nom: "required"}, {nom: "root"},
+			{nom: "target"}, {nom: "visited"}];
+		this.prototype.pseudoelements = [
+			{nom: "before"}, {nom: "after"},
+			{nom: "first-letter"}, {nom: "first-line"},
+			{nom: "selection"}
+		];
+		this.prototype.attributs = [
+			{nom: "src"}, {nom: "href"}, {nom: "target"}, {nom: "width"}, {nom: "height"},
+			{nom: "title"}, {nom: "class"}, {nom: "id"}, {nom: "alt"}, {nom: "start"},
+			{nom: "value"}, {nom: "colspan"}, {nom: "rowspan"}
+		];
+		this.prototype.operateurs = [
+			{nom: "="}, {nom: "~="}, {nom: "!="}, {nom: "^="}, {nom: "$="}, {nom: "*="}
+		];
+		this.prototype.separateurs = [
+			{nom: " "}, {nom: ">"}, {nom: "+"}, {nom: "~"}, {nom: ","}
+		];
+	}
+}
+Selecteur.init();
+//var test = new Selecteur(3);
+//test.contenu = "li:not(.xyz):not(.abc):nth-child(8)";
+//console.log(test.contenu, test.specificite, test.complexite);

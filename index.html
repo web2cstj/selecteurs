@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sélecteurs en direct</title>
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="selecteurs.js"></script>
+	<link rel="stylesheet" type="text/css" href="selecteurs.css" />
+</head>
+
+<body>
+	<h1>Pour s'exercer avec les sélecteurs</h1>
+	<form action="" onsubmit="return false;">
+		<fieldset>
+			<legend>Type de recherche</legend>
+			<div>
+				<input type="radio" name="mode" id="mode_selecteur" value="selecteur" />
+				<label for="mode_selecteur">Trouver le sélecteur</label>
+				<input type="radio" name="mode" id="mode_signification" value="signification" checked="checked" />
+				<label for="mode_signification">Trouver la signification</label>
+				<input type="radio" name="mode" id="mode_alea" value="alea" />
+				<label for="mode_alea">Surprise</label>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend>Niveau de difficulté</legend>
+			<div>
+				<label onclick="App.afficherQuestion(1)">Facile</label>
+				<label onclick="App.afficherQuestion(2)">Moyen</label>
+				<label onclick="App.afficherQuestion(3)">Difficile</label>
+				<label onclick="App.afficherQuestion(0)">Surprise</label>
+			</div>
+		</fieldset>
+		<div id="affichage"></div>
+	</form>
+</body>
+
+</html>
