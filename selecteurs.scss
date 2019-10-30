@@ -2,23 +2,37 @@ html {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-@media all and (min-aspect-ratio:5/3) {
-	html {
+	@media all and (min-aspect-ratio:5/3) {
 		font-size: 2.5vh;
 	}
-}
-@media all and (max-aspect-ratio:5/3) {
-	html {
+	@media all and (max-aspect-ratio:5/3) {
 		font-size: 1.5vw;
 	}
 }
 body {
+	height: 100%;
 	margin: 0;
 	padding: 0;
 	font-family:arial;
 	background-color:#CFF;
     background-image: linear-gradient(rgba(255,255,255,.9) 30px, rgba(255,255,255,0) 200px, rgba(0,0,0,0) 200px, rgba(0,0,0,.5));
+}
+#app {
+	min-height: 100%;
+	flex-direction: column;
+	display: flex;
+	& > header, & > footer {
+		background-color: transparent;
+	}
+	& > header {
+		order: -100;
+	}
+	& > footer {
+		order: 100;
+	}
+	& > .body {
+		flex: 1 0 0;
+	}
 }
 h1 {
     color: #366;
@@ -30,14 +44,15 @@ h1 {
 	margin: .25em;
 }
 div#affichage {
-	width: 60em;
-	margin: 0 auto;
+
+	// width: 60em;
+	// margin: 0 auto;
 	font-size:1em;
     border:solid .1em #366;
     padding:1em;
     border-radius:.5em;
     background-color: #A8D3D3;
-    margin:1em auto;
+    // margin:1em auto;
     box-shadow: .05em .05em .15em rgba(0,0,0,.5) inset;
 }
 div#affichage>label:only-child {
@@ -76,7 +91,6 @@ label {
     flex: 1 0 0;
 	display: flex;
 	justify-content: space-between;
-	margin: 0 .25em;
 	color:#366;
     background:#AACCCC;
     border:0.1em solid #366;
@@ -130,15 +144,23 @@ input[type='radio'] {
 		}
 	}
 }
+form {
+	display: grid;
+	gap: 1ch;
+}
 fieldset {
-    width:42em;
+	grid-column: 1;
     text-align:center;
-    margin: 0 auto;
-	margin-top: 0.5em;
     border: solid 0.1em #366;
     background-color:#DFF;
 	& > div {
-		display:flex;
+		display:grid;
+		gap: 1ch;
+		grid-auto-columns: 1fr;
+		grid-auto-flow: column;
+		& > span {
+			display: contents;
+		}
 	}
 }
 tr.selecteur {
@@ -164,4 +186,24 @@ span.ainsi {
 }
 span.separateur {
 	color:#b81;
+}
+@media (max-aspect-ratio: 1/5) {
+	html {
+		font-size: 4vh;
+	}
+	form {
+		grid-template-columns: max-content 1fr;
+		grid-template-rows: auto min-content;
+	}
+	fieldset {
+		grid-column: 1;
+		& > div {
+			grid-auto-flow: row;
+		}
+
+	}
+	#affichage {
+		grid-column: 2;
+		grid-row: 1 / -1;
+	}
 }
