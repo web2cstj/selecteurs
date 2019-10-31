@@ -16,18 +16,23 @@ export default class Selecteur {
 			e.stopImmediatePropagation();
 			return false;
 		});
-		resultat.appendChild(this.fieldset_modes());
-		resultat.appendChild(this.fieldset_actions());
+		resultat.appendChild(this.options());
 		var affichage = resultat.appendChild(document.createElement("div"));
 		affichage.setAttribute("id", "affichage");
 		return resultat;
 	}
+	static options() {
+		var resultat = document.createElement("div");
+		resultat.classList.add("options");
+		resultat.appendChild(this.fieldset_modes());
+		resultat.appendChild(this.fieldset_actions());
+		return resultat;
+	}
 	static fieldset_actions() {
 		var fieldset = document.createElement("fieldset");
+		fieldset.classList.add("actions");
 		var legend = fieldset.appendChild(document.createElement("legend"));
 		legend.appendChild(document.createTextNode("Niveau de difficulté"));
-		// 		<legend>Niveau de difficulté</legend>
-		// 		<div>
 		var div = fieldset.appendChild(document.createElement("div"));
 		for (let k in this.actions) {
 			div.appendChild(this.dom_action(k, this.actions[k]));
@@ -37,10 +42,9 @@ export default class Selecteur {
 
 	static fieldset_modes() {
 		var fieldset = document.createElement("fieldset");
-		// 		<legend>Type de recherche</legend>
+		fieldset.classList.add("modes");
 		var legend = fieldset.appendChild(document.createElement("legend"));
 		legend.appendChild(document.createTextNode("Type de recherche"));
-		// 		<div>
 		var div = fieldset.appendChild(document.createElement("div"));
 		for (let k in this.modes) {
 			div.appendChild(this.dom_radio("mode", k, this.modes[k]));
@@ -50,6 +54,7 @@ export default class Selecteur {
 
 	static dom_radio(name, value, etiquette) {
 		var resultat = document.createElement("span");
+		resultat.classList.add("bouton");
 		var input = resultat.appendChild(document.createElement("input"));
 		const id = name + "_" + value;
 		input.setAttribute("type", "radio");
@@ -62,13 +67,15 @@ export default class Selecteur {
 		return resultat;
 	}
 	static dom_action(id, action) {
-		// 			<label onclick="Selecteur.afficherQuestion(1)">Facile</label>
-		var resultat = document.createElement("label");
+		var resultat = document.createElement("span");
+		var label = resultat.appendChild(document.createElement("label"));
+		resultat.classList.add("bouton");
 		resultat.setAttribute("id", "action_"+id)
-		resultat.appendChild(document.createTextNode(action.label));
+		label.appendChild(document.createTextNode(action.label));
 		resultat.addEventListener("click", action.handler);
 		window.addEventListener("keydown", e => {
-			if (e.keyCode === action.accesskey) {
+			console.log(e);
+			if (e.key === action.accesskey) {
 				action.handler(e);
 			}
 		});
@@ -283,8 +290,8 @@ export default class Selecteur {
 			difficile: {label: "Difficile", accesskey: "3", handler: () => {
 				return Selecteur.afficherQuestion(3);
 			}},
-			surprise: {label: "Surprise", accesskey: "4", handler: () => {
-				return Selecteur.afficherQuestion(4);
+			surprise: {label: "Surprise", accesskey: "0", handler: () => {
+				return Selecteur.afficherQuestion(0);
 			}},
 		};
 		this.prototype.balises = [

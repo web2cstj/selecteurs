@@ -1,0 +1,26 @@
+@media (min-aspect-ratio: 2/1) {
+	html {
+		font-size: 3.5vh;
+	}
+	body {
+		background-color: red;
+	}
+	form {
+		display: contents;
+	}
+	.body {
+		grid-template-columns: max-content 1fr;
+		grid-template-rows: auto min-content;
+	}
+	fieldset {
+		grid-column: 1;
+		& > div {
+			grid-auto-flow: row;
+		}
+
+	}
+	#affichage {
+		grid-column: 2;
+		grid-row: 1 / -1;
+	}
+}
