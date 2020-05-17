@@ -17,8 +17,12 @@ export default class Selecteur {
 			return false;
 		});
 		resultat.appendChild(this.options());
-		var affichage = resultat.appendChild(document.createElement("div"));
-		affichage.setAttribute("id", "affichage");
+		resultat.appendChild(this.html_affichage());
+		return resultat;
+	}
+	static html_affichage() {
+		var resultat = document.createElement("div");
+		resultat.setAttribute("id", "affichage");
 		return resultat;
 	}
 	static options() {
@@ -125,7 +129,7 @@ export default class Selecteur {
     }
     get signification() {
         var resultat;
-		Selecteur.traduire(this.contenu);
+		resultat = Selecteur.traduire(this.contenu);
         return resultat;
     }
     static traduire(selecteur) {
@@ -343,42 +347,59 @@ export default class Selecteur {
 		} else {
 			return Math.floor(Math.random() * sujet);
 		}
-    }
+	}
+	static question() {
+		var resultat = document.createElement("div");
+		resultat.setAttribute("id", "question");
+		var label = resultat.appendChild(document.createElement("div"));
+		label.classList.add("label");
+		var span = label.appendChild(document.createElement("span"));
+		span.innerHTML = "Sélecteur";
+		var cellSelecteur = resultat.appendChild(document.createElement("div"));
+		cellSelecteur.classList.add("reponse");
+		cellSelecteur.classList.add("selecteur");
+		cellSelecteur.setAttribute("id", "selecteur");
+		resultat.selecteur = cellSelecteur.appendChild(document.createElement("div"));
+		var label = resultat.appendChild(document.createElement("div"));
+		label.classList.add("label");
+		var span = label.appendChild(document.createElement("span"));
+		span.innerHTML = "Signification";
+		var cellSignification = resultat.appendChild(document.createElement("div"));
+		cellSignification.classList.add("reponse");
+		cellSignification.classList.add("signification");
+		cellSignification.setAttribute("id", "signification");
+		resultat.signification = cellSignification.appendChild(document.createElement("div"));
+		return resultat;
+	}
     static afficherQuestion(niveau) {
-        var resultat, selecteur, mode;
-        resultat = "";
-        selecteur = new Selecteur(niveau);
-        resultat += '<table border="1">';
-        if (document.getElementById("mode_selecteur").checked === true) {
-            mode = 0;
-        } else if (document.getElementById("mode_signification").checked === true) {
-            mode = 1;
-        } else {
-            mode = this.prototype.alea(2);//TODO
-        }
-        if (mode === 1) {
-            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td>' + selecteur.contenu + '</td></tr>';
-            resultat += '<tr class="signification"><th>Signification :</th><td></td></tr>';
-        } else {
-            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td></td></tr>';
-            resultat += '<tr class="signification"><th>Signification :</th><td>' + Selecteur.traduire(selecteur.contenu) + '</td></tr>';
-        }
-        resultat += '</table>';
-        document.getElementById("affichage").innerHTML = resultat + '<label for="solution" onclick="App.afficherSolution()">Voir la solution</label>';
-        document.getElementById("affichage").selecteur = selecteur.contenu;
+		var question, mode;
+		var affichage = document.getElementById("affichage");
+		affichage.innerHTML = "";
+		question = affichage.appendChild(this.question());
+		if (document.getElementById("mode_selecteur").checked === true) {
+			mode = 0;
+		} else if (document.getElementById("mode_signification").checked === true) {
+			mode = 1;
+		} else {
+			mode = this.prototype.alea(2);//TODO
+		}
+		question.obj = new Selecteur(niveau);
+		if (mode === 1) {
+			question.selecteur.innerHTML = question.obj.contenu;
+		} else {
+			question.signification.innerHTML = question.obj.signification;
+		}
+		
+		var button = question.appendChild(document.createElement("button"));
+		button.setAttribute("for", "solution");
+		button.innerHTML = "Voir la solution";
+		button.addEventListener("click", this.afficherSolution);
     }
     static afficherSolution() {
-        var resultat, c;
-        resultat = "";
-        c = document.getElementById("affichage").selecteur;
-        resultat += '<table border="1">';
-        resultat += '<tr class="selecteur"><th>Sélecteur : </th><td>' + c + '</td></tr>';
-        resultat += '<tr class="signification"><th>Signification : </th><td>' + Selecteur.traduire(c) + '</td></tr>';
-        resultat += '</table>';
-        document.getElementById("affichage").innerHTML = resultat;
-    }
+        var question;
+        question = document.getElementById("question");
+		question.selecteur.innerHTML = question.obj.contenu;
+		question.signification.innerHTML = question.obj.signification;
+	}
 }
 Selecteur.init();
-//var test = new Selecteur(3);
-//test.contenu = "li:not(.xyz):not(.abc):nth-child(8)";
-//console.log(test.contenu, test.specificite, test.complexite);

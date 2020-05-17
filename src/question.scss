@@ -1,0 +1,50 @@
+@import "_variables";
+#question {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	grid-template-rows: 2fr 4fr 2em;
+	gap: var(--gap) 0;
+	height: 100%;
+	font-size: 190%;
+	button {
+		@include button;
+		grid-row: span -1;
+		grid-column: 1 / -1;
+		justify-self: center;
+		border: none;
+		background: rgba(0,0,0,.1);
+		width:20em;
+		display: block;
+		opacity:.5;
+		font-size: 1em;
+		&:hover {
+			opacity:1;
+		}
+	}
+	.label {
+		background-color: var(--couleur-principale);
+		color:  var(--couleur-principale-foncee);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 1em 0 0 1em;
+		width: 2em;
+		font-size: .6em;
+		font-weight: bold;
+		text-transform: uppercase;
+		span {
+			display: block;
+			white-space: nowrap;
+			transform: rotate(-90deg);
+		}
+	}
+	.reponse {
+		background-color: var(--couleur-principale);
+		padding: 1em;
+		border-radius: 0 1em 1em 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: justify;
+	}
+}

@@ -1,0 +1,33 @@
+@mixin button {
+	flex: 1 0 0;
+	display: grid;
+	grid-auto-flow: column;
+	padding: 0 1ch;
+	align-items: center;
+	justify-items: center;
+	// align-content: center;
+	// justify-content: center;
+	// box-shadow: -0.05em -0.05em 0.1em rgba(255,255,255,.8), 0.05em 0.05em 0.1em rgba(0,0,0,.5);
+	color:hsl(var(--hue), 33%, 30%);
+	background:hsl(var(--hue), 25%, 73%);
+	border-radius:.5ch;
+	line-height: 1em;
+	text-align:center;
+	font-weight: bold;
+	cursor: pointer;
+	&::before, &::after {
+		content: "";
+	}
+	&:hover {
+		box-shadow: 0.1em 0.1em 0.2em rgba(0,0,0,.5);
+	}
+}
+
+
+@mixin ecran {
+	border:solid .1em hsl(var(--hue), 33%, 30%);
+	padding:1em;
+	border-radius:.5em;
+	background-color: #A8D3D3;
+	box-shadow: .05em .05em .15em rgba(0,0,0,.5) inset;
+}

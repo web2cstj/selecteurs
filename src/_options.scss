@@ -1,0 +1,109 @@
+.options {
+	user-select: none;
+	font-size: 1.5rem;
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+	gap: 1em;
+	& > fieldset {
+		& > div {
+			height: 100%;
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: 1fr;
+		}
+	}
+	.bouton {
+		display: flex;
+		min-height: 1.5em;
+		input {
+			display: none;
+		}
+		label {
+			@include button;
+			grid-template-columns: 1.5em 1fr;
+			--taille-coche: 0.7em;
+			&::before {
+				content: "";
+				background-color: var(--couleur-principale-pale);
+				font-size: 1.5em;
+				width: var(--taille-coche);
+				height: var(--taille-coche);
+				line-height: calc(var(--taille-coche)/2);
+				text-align: center;
+				border-radius: 100%;
+			}
+			&::after {
+				content: none;
+			}
+		}
+		:checked + label {
+			box-shadow: -0.05em -0.05em 0.1em, 0.05em 0.05em 0.1em rgba(255,255,255,.8);
+			background-color:rgba(0,0,0,.5);
+			color:var(--couleur-principale-pale);
+			&::before {
+				background-color: var(--couleur-principale-pale);
+				color: black;
+				content: "\2611";
+				content: "\2714";
+			}
+		}
+	}
+	fieldset {
+		// grid-column: 1;
+		text-align:center;
+		background-color: var(--couleur-principale-pale);
+		border: none;
+		margin: 0;
+		& > legend {
+			color: var(--couleur-principale-foncee);
+			font-size: smaller;
+			font-weight: bold;
+			font-style: italic;
+			margin: auto;
+			background-color: inherit;
+			padding: 0 1ch;
+			border-radius: .25em;
+		}
+		& > div {
+			display:grid;
+			gap: .5ch 1ch;
+			height: 100%;
+			box-sizing: border-box;
+			// grid-auto-columns: 1fr;
+			// grid-auto-flow: column;
+			// & > span {
+				// display: contents;
+			// }
+		}
+	}
+	.actions {
+		--taille-icone: 1.7em;
+		& > div {
+			font-size: 150%;
+		}
+		label::before {
+			font-weight: normal;
+			text-shadow: 0 0px 0px, 0 0px 0px;
+			font-family: smile;
+			background-color: transparent;
+			width: auto;
+			height: auto;
+		}
+		#action_facile > label::before {
+			font-size: calc(1.15 * var(--taille-icone));
+			content: "O";
+		}
+		#action_moyen > label::before {
+			font-size: calc(1 * var(--taille-icone));
+			content: "I";
+		}
+		#action_difficile > label::before {
+			font-size: calc(1.15 * var(--taille-icone));
+			content: "0";
+		}
+		#action_surprise > label::before {
+			font-size: calc(1.4 * var(--taille-icone));
+			content: "f";
+		}
+	}
+}

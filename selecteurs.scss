@@ -1,20 +1,29 @@
-html {
+@import "./src/_variables.scss";
+// @import url('https://fonts.googleapis.com/css?family=Saira+Semi+Condensed:400,700,900&display=swap');
+@import url('src/saira.css');
+@font-face {
+	font-family: smile;
+	src: url(Smile2Me-Regular.ttf);
+}
+:root {
+	--hue: 140;
+	--sat: 30%;
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	font-family:saira;
+	font-size: 1.1vw;
 }
 body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	font-family:arial;
-	background-color:#CFF;
-	background-image: linear-gradient(rgba(255,255,255,.9) 30px, rgba(255,255,255,0) 200px, rgba(0,0,0,0) 200px, rgba(0,0,0,.5));
+	background-color: hsl(var(--hue), var(--sat), 30%);
 }
 #app {
 	min-height: 100%;
-	flex-direction: column;
-	display: flex;
+	display: grid;
+	grid-template-rows: auto 1fr;
 	& > header, & > footer {
 		background-color: transparent;
 	}
@@ -29,120 +38,19 @@ body {
 	}
 }
 h1 {
-	color: #366;
-	font-family:impact;
+	color: var(--couleur-principale-foncee);
+	font-family:saira;
 	font-size:3em;
 	text-align:center;
-	font-stretch: extra-expanded;
 	line-height: 1em;
 	margin: .25em;
+	font-weight: 900;
 }
 div#affichage {
+	// @include ecran;
 	font-size:1em;
-	border:solid .1em #366;
-	padding:1em;
-	border-radius:.5em;
-	background-color: #A8D3D3;
-	box-shadow: .05em .05em .15em rgba(0,0,0,.5) inset;
 }
-.bouton {
-	display: flex;
-	min-height: 2em;
-	input {
-		display: none;
-		& + label {
-			position: relative;
-			--taille-coche: 0.6em;
-			&::before {
-				content: "";
-				background-color: #FFF6;
-				font-size: 1.5em;
-				width: var(--taille-coche);
-				height: var(--taille-coche);
-				line-height: calc(var(--taille-coche)/2);
-				text-align: center;
-				border-radius: 100%;
-			}
-			&::after {
-				content: "";
-			}
-		}
-		&:checked + label {
-			box-shadow: -0.05em -0.05em 0.1em, 0.05em 0.05em 0.1em rgba(255,255,255,.8);
-			background-color:rgba(0,0,0,.5);
-			color:#CEE;
-			&::before {
-				background-color: #CEE;
-				color: black;
-				content: "\2611";
-				content: "\2714";
-			}
-		}
-	}
-	// justify-content: space-around;
-	// flex: 1 0 0;
-	label {
-		flex: 1 0 0;
-		display: grid;
-		grid-template-columns: 1.5em 1fr 1.5em;
-		padding: 0 1ch;
-		align-items: center;
-		justify-items: center;
-		// box-shadow: -0.05em -0.05em 0.1em rgba(255,255,255,.8), 0.05em 0.05em 0.1em rgba(0,0,0,.5);
-		color:#366;
-		background:#AACCCC;
-		border-radius:.5ch;
-		line-height: 1em;
-		text-align:center;
-		font-weight: bold;
-		cursor: pointer;
-		&::before, &::after {
-			content: "";
-		}
-		&:hover {
-			box-shadow: 0.1em 0.1em 0.2em rgba(0,0,0,.5);
-		}
-		&[for="solution"] {
-			background: transparent;
-			width:20em;
-			margin:.5em auto 0;
-			display: block;
-			opacity:.5;
-			&:hover {
-				opacity:1;
-			}
-		}
-	}
-}
-// form {
-	// display: grid;
-	// gap: 1ch;
-// }
-fieldset {
-	// grid-column: 1;
-	text-align:center;
-	background-color:#DFF;
-	border: none;
-	& > legend {
-		color: #366;
-		font-size: smaller;
-		font-weight: bold;
-		font-style: italic;
-		margin: auto;
-		background-color: #dff;
-		padding: 0 1ch;
-		border-radius: .25em;
-	}
-	& > div {
-		display:grid;
-		gap: .5ch 1ch;
-		// grid-auto-columns: 1fr;
-		// grid-auto-flow: column;
-		// & > span {
-			// display: contents;
-		// }
-	}
-}
+@import "./src/_options";
 span.balise {
 	font-family: "Courier New";
 }
@@ -154,48 +62,19 @@ span.ainsi {
 span.separateur {
 	color:#b81;
 }
-/*
-	
-	table {
-		width:100%;
-		background-color:#fFF;
-		margin:0;
-		border-collapse:collapse;
-		tr.selecteur {
-			& > td {
-				white-space: pre-wrap;
-				&:empty::before {
-					content: "Pour appliquer la règle aux éléments ci-dessous, le sélecteur sera...";
-					color: rgba(0,0,0,.3);
-				}
-			}
-		}
-		tr.signification {
-			& > td:empty::before {
-				content: "Avec le sélecteur ci-dessus, la règle s'appliquera à...";
-				color: rgba(0,0,0,.3);
-			}
-			& th {
-				height:6em;
-			}
-		}
-		th, td {
-			padding:.5em;
-			border-color:#366;
-		}
-		th {
-			width:7em;
-			text-align:right;
-			height:3em;
-			background-color:#366;
-			color:#fFF;
-			border-color:#fFF;
-		}
-		td {
-			font-size: 1.5em;
-		}
+div.body {
+	--gap: 1rem;
+	display: grid;
+	gap: var(--gap);
+	padding: var(--gap);
+	grid-template-rows: auto 1fr;
+	form {
+		display: contents;
 	}
-*/
-@import '_portrait.scss';
-@import '_paysage.scss';
-@import '_large.scss';
+}
+@media (max-aspect-ratio : 1 / 1) {	
+	body {
+		background-color: red;
+	}
+}
+@import url("./src/question.css");

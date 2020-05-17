@@ -1,23 +1,33 @@
-@charset "UTF-8";
-html {
+@import url("src/saira.css");
+@import url("./src/question.css");
+@font-face {
+  font-family: smile;
+  src: url(Smile2Me-Regular.ttf);
+}
+
+:root {
+  --hue: 140;
+  --sat: 30%;
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: saira;
+  font-size: 1.1vw;
 }
 
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: arial;
-  background-color: #CFF;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.9) 30px, rgba(255, 255, 255, 0) 200px, transparent 200px, rgba(0, 0, 0, 0.5));
+  background-color: hsl(var(--hue), var(--sat), 30%);
 }
 
 #app {
   min-height: 100%;
-  flex-direction: column;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
 }
 
 #app > header, #app > footer {
@@ -25,53 +35,105 @@ body {
 }
 
 #app > header {
-  order: -100;
+  -webkit-box-ordinal-group: -99;
+      -ms-flex-order: -100;
+          order: -100;
 }
 
 #app > footer {
-  order: 100;
+  -webkit-box-ordinal-group: 101;
+      -ms-flex-order: 100;
+          order: 100;
 }
 
 #app > .body {
-  flex: 1 0 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
 }
 
 h1 {
-  color: #366;
-  font-family: impact;
+  color: var(--couleur-principale-foncee);
+  font-family: saira;
   font-size: 3em;
   text-align: center;
-  font-stretch: extra-expanded;
   line-height: 1em;
   margin: .25em;
+  font-weight: 900;
 }
 
 div#affichage {
   font-size: 1em;
-  border: solid .1em #366;
-  padding: 1em;
-  border-radius: .5em;
-  background-color: #A8D3D3;
-  box-shadow: 0.05em 0.05em 0.15em rgba(0, 0, 0, 0.5) inset;
 }
 
-.bouton {
+.options {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 1.5rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 3fr;
+      grid-template-columns: 2fr 3fr;
+  gap: 1em;
+}
+
+.options > fieldset > div {
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.options .bouton {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  min-height: 2em;
+  min-height: 1.5em;
 }
 
-.bouton input {
+.options .bouton input {
   display: none;
 }
 
-.bouton input + label {
-  position: relative;
-  --taille-coche: 0.6em;
+.options .bouton label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  padding: 0 1ch;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  color: hsl(var(--hue), 33%, 30%);
+  background: hsl(var(--hue), 25%, 73%);
+  border-radius: .5ch;
+  line-height: 1em;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  -ms-grid-columns: 1.5em 1fr;
+      grid-template-columns: 1.5em 1fr;
+  --taille-coche: 0.7em;
 }
 
-.bouton input + label::before {
+.options .bouton label::before, .options .bouton label::after {
   content: "";
-  background-color: #FFF6;
+}
+
+.options .bouton label:hover {
+  -webkit-box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
+          box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
+}
+
+.options .bouton label::before {
+  content: "";
+  background-color: var(--couleur-principale-pale);
   font-size: 1.5em;
   width: var(--taille-coche);
   height: var(--taille-coche);
@@ -80,79 +142,86 @@ div#affichage {
   border-radius: 100%;
 }
 
-.bouton input + label::after {
-  content: "";
+.options .bouton label::after {
+  content: none;
 }
 
-.bouton input:checked + label {
-  box-shadow: -0.05em -0.05em 0.1em, 0.05em 0.05em 0.1em rgba(255, 255, 255, 0.8);
+.options .bouton :checked + label {
+  -webkit-box-shadow: -0.05em -0.05em 0.1em, 0.05em 0.05em 0.1em rgba(255, 255, 255, 0.8);
+          box-shadow: -0.05em -0.05em 0.1em, 0.05em 0.05em 0.1em rgba(255, 255, 255, 0.8);
   background-color: rgba(0, 0, 0, 0.5);
-  color: #CEE;
+  color: var(--couleur-principale-pale);
 }
 
-.bouton input:checked + label::before {
-  background-color: #CEE;
+.options .bouton :checked + label::before {
+  background-color: var(--couleur-principale-pale);
   color: black;
   content: "\2611";
   content: "\2714";
 }
 
-.bouton label {
-  flex: 1 0 0;
-  display: grid;
-  grid-template-columns: 1.5em 1fr 1.5em;
-  padding: 0 1ch;
-  align-items: center;
-  justify-items: center;
-  color: #366;
-  background: #AACCCC;
-  border-radius: .5ch;
-  line-height: 1em;
+.options fieldset {
   text-align: center;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.bouton label::before, .bouton label::after {
-  content: "";
-}
-
-.bouton label:hover {
-  box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
-}
-
-.bouton label[for="solution"] {
-  background: transparent;
-  width: 20em;
-  margin: .5em auto 0;
-  display: block;
-  opacity: .5;
-}
-
-.bouton label[for="solution"]:hover {
-  opacity: 1;
-}
-
-fieldset {
-  text-align: center;
-  background-color: #DFF;
+  background-color: var(--couleur-principale-pale);
   border: none;
+  margin: 0;
 }
 
-fieldset > legend {
-  color: #366;
+.options fieldset > legend {
+  color: var(--couleur-principale-foncee);
   font-size: smaller;
   font-weight: bold;
   font-style: italic;
   margin: auto;
-  background-color: #dff;
+  background-color: inherit;
   padding: 0 1ch;
   border-radius: .25em;
 }
 
-fieldset > div {
+.options fieldset > div {
+  display: -ms-grid;
   display: grid;
   gap: .5ch 1ch;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.options .actions {
+  --taille-icone: 1.7em;
+}
+
+.options .actions > div {
+  font-size: 150%;
+}
+
+.options .actions label::before {
+  font-weight: normal;
+  text-shadow: 0 0px 0px, 0 0px 0px;
+  font-family: smile;
+  background-color: transparent;
+  width: auto;
+  height: auto;
+}
+
+.options .actions #action_facile > label::before {
+  font-size: calc(1.15 * var(--taille-icone));
+  content: "O";
+}
+
+.options .actions #action_moyen > label::before {
+  font-size: calc(1 * var(--taille-icone));
+  content: "I";
+}
+
+.options .actions #action_difficile > label::before {
+  font-size: calc(1.15 * var(--taille-icone));
+  content: "0";
+}
+
+.options .actions #action_surprise > label::before {
+  font-size: calc(1.4 * var(--taille-icone));
+  content: "f";
 }
 
 span.balise {
@@ -169,129 +238,23 @@ span.separateur {
   color: #b81;
 }
 
-/*
-	
-	table {
-		width:100%;
-		background-color:#fFF;
-		margin:0;
-		border-collapse:collapse;
-		tr.selecteur {
-			& > td {
-				white-space: pre-wrap;
-				&:empty::before {
-					content: "Pour appliquer la règle aux éléments ci-dessous, le sélecteur sera...";
-					color: rgba(0,0,0,.3);
-				}
-			}
-		}
-		tr.signification {
-			& > td:empty::before {
-				content: "Avec le sélecteur ci-dessus, la règle s'appliquera à...";
-				color: rgba(0,0,0,.3);
-			}
-			& th {
-				height:6em;
-			}
-		}
-		th, td {
-			padding:.5em;
-			border-color:#366;
-		}
-		th {
-			width:7em;
-			text-align:right;
-			height:3em;
-			background-color:#366;
-			color:#fFF;
-			border-color:#fFF;
-		}
-		td {
-			font-size: 1.5em;
-		}
-	}
-*/
-@media all {
-  html {
-    font-size: 2vmin;
-  }
-  body {
-    background-color: blue;
-  }
-  h1 {
-    font-size: 3em;
-    font-weight: normal;
-  }
-  div.body {
-    --gap: .5em 1em;
-    display: grid;
-    gap: var(--gap);
-    padding: var(--gap);
-    grid-template-rows: auto auto 1fr;
-  }
-  div.body form, div.body div.options {
-    display: contents;
-  }
-  fieldset {
-    align-self: start;
-  }
-  fieldset > div {
-    grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
-  }
+div.body {
+  --gap: 1rem;
+  display: -ms-grid;
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
 }
 
-@media (min-aspect-ratio: 3 / 2) {
-  html {
-    font-size: 2vmin;
-  }
-  body {
-    background-color: green;
-  }
-  div.body {
-    --gap: .5em 1em;
-    display: grid;
-    gap: var(--gap);
-    padding: var(--gap);
-    grid-template-rows: auto 1fr;
-    grid-template-columns: auto auto;
-  }
-  div.body form, div.body div.options {
-    display: contents;
-  }
-  fieldset {
-    align-self: start;
-  }
-  fieldset > div {
-    grid-template-columns: repeat(auto-fill, auto);
-  }
-  #affichage {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
+div.body form {
+  display: contents;
 }
 
-@media (min-aspect-ratio: 2 / 1) {
-  html {
-    font-size: 3.5vh;
-  }
+@media (max-aspect-ratio: 1 / 1) {
   body {
     background-color: red;
   }
-  form {
-    display: contents;
-  }
-  .body {
-    grid-template-columns: max-content 1fr;
-    grid-template-rows: auto min-content;
-  }
-  fieldset {
-    grid-column: 1;
-  }
-  fieldset > div {
-    grid-auto-flow: row;
-  }
-  #affichage {
-    grid-column: 2;
-    grid-row: 1 / -1;
-  }
 }
+/*# sourceMappingURL=selecteurs.css.map */
