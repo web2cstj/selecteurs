@@ -11,11 +11,10 @@
 		grid-column: 1 / -1;
 		justify-self: center;
 		border: none;
-		background: rgba(0, 0, 0, 0.1);
+		background: var(--couleur-principale-pale);
 		width: 20em;
 		display: block;
 		opacity: 0.5;
-		// font-size: 1em;
 		&:hover {
 			opacity: 1;
 		}
