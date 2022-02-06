@@ -11,6 +11,7 @@
 	padding: 0;
 	font-family:saira;
 	font-size: var(--font-size);
+	--smiley: "A";
 }
 body {
 	height: 100%;
@@ -68,3 +69,28 @@ div.body {
 	}
 }
 @import "question";
+#affichage {
+	position: relative;
+	#question {
+		position: relative;
+	}
+	&.cacher-smiley::before {
+		opacity: 0;
+	}
+	&::before {
+		position: absolute;
+		z-index: -1;
+		font-family: Smile;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		width: 100%;
+		color: var(--couleur-principale-pale);
+		color: hsl(calc(var(--hue) + 0), 70%, 50%);
+		font-size: 90vmin;
+		content: var(--smiley, "X");
+		transition: opacity 500ms;
+		line-height: 0;
+	}
+}

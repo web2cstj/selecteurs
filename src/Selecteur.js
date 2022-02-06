@@ -78,7 +78,7 @@ export default class Selecteur {
 		label.appendChild(document.createTextNode(action.label));
 		resultat.addEventListener("click", action.handler);
 		window.addEventListener("keydown", e => {
-			console.log(e);
+			// console.log(e);
 			if (e.key === action.accesskey) {
 				action.handler(e);
 			}
@@ -141,7 +141,7 @@ export default class Selecteur {
             resultat.push(this.traduireImbrique(selecteur2[i]));
         }
         resultat = resultat.join(' <span class="separateur ainsi">ainsi que</span> ');
-        return resultat.substr(0, 1).toUpperCase() + resultat.substr(1);
+        return resultat.slice(0, 1).toUpperCase() + resultat.slice(1);
     }
     static traduireImbrique(selecteur) {
         var selecteur2, resultat, i, separateurs;
@@ -351,23 +351,23 @@ export default class Selecteur {
 	static question() {
 		var resultat = document.createElement("div");
 		resultat.setAttribute("id", "question");
-		var label = resultat.appendChild(document.createElement("div"));
-		label.classList.add("label");
-		var span = label.appendChild(document.createElement("span"));
-		span.innerHTML = "Sélecteur";
 		var cellSelecteur = resultat.appendChild(document.createElement("div"));
 		cellSelecteur.classList.add("reponse");
 		cellSelecteur.classList.add("selecteur");
 		cellSelecteur.setAttribute("id", "selecteur");
-		resultat.selecteur = cellSelecteur.appendChild(document.createElement("div"));
-		var label = resultat.appendChild(document.createElement("div"));
+		var label = cellSelecteur.appendChild(document.createElement("div"));
 		label.classList.add("label");
 		var span = label.appendChild(document.createElement("span"));
-		span.innerHTML = "Signification";
+		span.innerHTML = "Sélecteur";
+		resultat.selecteur = cellSelecteur.appendChild(document.createElement("div"));
 		var cellSignification = resultat.appendChild(document.createElement("div"));
 		cellSignification.classList.add("reponse");
 		cellSignification.classList.add("signification");
 		cellSignification.setAttribute("id", "signification");
+		var label = cellSignification.appendChild(document.createElement("div"));
+		label.classList.add("label");
+		var span = label.appendChild(document.createElement("span"));
+		span.innerHTML = "Signification";
 		resultat.signification = cellSignification.appendChild(document.createElement("div"));
 		return resultat;
 	}

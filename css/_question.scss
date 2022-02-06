@@ -1,6 +1,6 @@
 #question {
 	display: grid;
-	grid-template-columns: max-content 1fr;
+	grid-template-columns: 1fr;
 	grid-template-rows: 10rem 1fr 2rem;
 	gap: var(--gap) 0;
 	height: 100%;
@@ -20,16 +20,19 @@
 		}
 	}
 	.label {
-		background-color: var(--couleur-principale);
+		// background-color: var(--couleur-principale);
 		color: var(--couleur-principale-pale);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: 1em 0 0 1em;
 		width: 2em;
-		// font-size: .6em;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
 		font-weight: bold;
 		text-transform: uppercase;
+		font-size: 1rem;
 		span {
 			display: block;
 			white-space: nowrap;
@@ -37,15 +40,27 @@
 		}
 	}
 	.reponse {
-		background-color: var(--couleur-principale);
+		background-color: hsla(var(--hue), 70%, 95%, .9);
+		position: relative;
 		padding: 1rem;
-		border-radius: 0 1rem 1rem 0;
-		display: flex;
+		padding-left: 3rem;
+		overflow: hidden;
+		border-radius: 1rem;
+		display: grid;
+		grid-template-columns: 1fr;
 		align-items: center;
-		justify-content: center;
+		justify-items: center;
 		text-align: center;
-		background-color: var(--couleur-principale-pale);
-		border: 4px solid var(--couleur-principale);
+		// > div {
+		// 	display: flex;
+		// 	align-items: center;
+		// 	justify-content: center;
+		// 	text-align: center;
+		// }
+		// background-color: var(--couleur-principale-pale);
+		// border: 4px solid var(--couleur-principale);
+		// border-left-width: 2rem;
+		box-shadow: inset 2rem 0 0 4px var(--couleur-principale), inset -2px 0 0 4px var(--couleur-principale);
 	}
 }
 #selecteur {
