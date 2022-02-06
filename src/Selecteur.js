@@ -1,56 +1,89 @@
-/*jslint browser:true,esnext:true */
-class App {
-    static init() {
-	}
-
-    static alea(sujet) {
-        if (sujet instanceof Array) {
-        	return sujet[this.alea(sujet.length)];
-		} else {
-			return Math.floor(Math.random() * sujet);
-		}
-    }
-    static afficherQuestion(niveau) {
-        var resultat, selecteur, mode;
-        resultat = "";
-        selecteur = new Selecteur(niveau);
-        resultat += '<table border="1">';
-        if (document.getElementById("mode_selecteur").checked === true) {
-            mode = 0;
-        } else if (document.getElementById("mode_signification").checked === true) {
-            mode = 1;
-        } else {
-            mode = App.alea(2);
-        }
-        if (mode === 1) {
-            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td>' + selecteur.contenu + '</td></tr>';
-            resultat += '<tr class="signification"><th>Signification :</th><td></td></tr>';
-        } else {
-            resultat += '<tr class="selecteur"><th>Sélecteur :</th><td></td></tr>';
-            resultat += '<tr class="signification"><th>Signification :</th><td>' + Selecteur.traduire(selecteur.contenu) + '</td></tr>';
-        }
-        resultat += '</table>';
-        document.getElementById("affichage").innerHTML = resultat + '<label for="solution" onclick="App.afficherSolution()">Voir la solution</label>';
-        document.getElementById("affichage").selecteur = selecteur.contenu;
-    }
-    static afficherSolution() {
-        var resultat, c;
-        resultat = "";
-        c = document.getElementById("affichage").selecteur;
-        resultat += '<table border="1">';
-        resultat += '<tr class="selecteur"><th>Sélecteur : </th><td>' + c + '</td></tr>';
-        resultat += '<tr class="signification"><th>Signification : </th><td>' + Selecteur.traduire(c) + '</td></tr>';
-        resultat += '</table>';
-        document.getElementById("affichage").innerHTML = resultat;
-    }
-}
-App.init();
-
-class Selecteur {
+export default class Selecteur {
 	constructor(niveau) {
-		niveau = parseInt(niveau) || (App.alea(3) + 1);
+		niveau = parseInt(niveau) || (this.alea(3) + 1);
 		this.niveau = niveau;
 		this.contenu = this.composer(niveau);
+	}
+	static main() {
+		this.domaine = document.querySelector("#app > .body");
+		this.domaine.appendChild(this.creerForm());
+	}
+	static creerForm() {
+		var resultat = document.createElement("form");
+		resultat.addEventListener("submit", e => {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			return false;
+		});
+		resultat.appendChild(this.options());
+		resultat.appendChild(this.html_affichage());
+		return resultat;
+	}
+	static html_affichage() {
+		var resultat = document.createElement("div");
+		resultat.setAttribute("id", "affichage");
+		return resultat;
+	}
+	static options() {
+		var resultat = document.createElement("div");
+		resultat.classList.add("options");
+		resultat.appendChild(this.fieldset_modes());
+		resultat.appendChild(this.fieldset_actions());
+		return resultat;
+	}
+	static fieldset_actions() {
+		var fieldset = document.createElement("fieldset");
+		fieldset.classList.add("actions");
+		var legend = fieldset.appendChild(document.createElement("legend"));
+		legend.appendChild(document.createTextNode("Niveau de difficulté"));
+		var div = fieldset.appendChild(document.createElement("div"));
+		for (let k in this.actions) {
+			div.appendChild(this.dom_action(k, this.actions[k]));
+		}
+		return fieldset;
+	}
+
+	static fieldset_modes() {
+		var fieldset = document.createElement("fieldset");
+		fieldset.classList.add("modes");
+		var legend = fieldset.appendChild(document.createElement("legend"));
+		legend.appendChild(document.createTextNode("Type de recherche"));
+		var div = fieldset.appendChild(document.createElement("div"));
+		for (let k in this.modes) {
+			div.appendChild(this.dom_radio("mode", k, this.modes[k]));
+		}
+		div.querySelector("input[value=alea]").checked = true;
+		return fieldset;
+	}
+
+	static dom_radio(name, value, etiquette) {
+		var resultat = document.createElement("span");
+		resultat.classList.add("bouton");
+		var input = resultat.appendChild(document.createElement("input"));
+		const id = name + "_" + value;
+		input.setAttribute("type", "radio");
+		input.setAttribute("name", name);
+		input.setAttribute("value", value);
+		input.setAttribute("id", id);
+		var label = resultat.appendChild(document.createElement("label"));
+		label.setAttribute("for", id);
+		label.appendChild(document.createTextNode(etiquette));
+		return resultat;
+	}
+	static dom_action(id, action) {
+		var resultat = document.createElement("span");
+		var label = resultat.appendChild(document.createElement("label"));
+		resultat.classList.add("bouton");
+		resultat.setAttribute("id", "action_"+id)
+		label.appendChild(document.createTextNode(action.label));
+		resultat.addEventListener("click", action.handler);
+		window.addEventListener("keydown", e => {
+			console.log(e);
+			if (e.key === action.accesskey) {
+				action.handler(e);
+			}
+		});
+		return resultat;
 	}
     composer(niveau) {
         var resultat;
@@ -60,15 +93,15 @@ class Selecteur {
 			return this.composerBalise();
 		} else if (niveau === 2) {
 			resultat += this.composer(1);
-			while (Selecteur.calculerComplexite(resultat) < (App.alea(3) + 2)) {
-				let op = App.alea(ops);
+			while (Selecteur.calculerComplexite(resultat) < (this.alea(3) + 2)) {
+				let op = this.alea(ops);
 				resultat += op + this.composer(1);
 			}
 			return resultat;
 		} else if (niveau === 3) {
 			resultat += this.composer(1);
-			while (Selecteur.calculerComplexite(resultat) < (App.alea(6) + 10)) {
-				let op = App.alea(ops);
+			while (Selecteur.calculerComplexite(resultat) < (this.alea(6) + 10)) {
+				let op = this.alea(ops);
 				resultat += op + this.composer(1);
 			}
         	return resultat;
@@ -77,17 +110,17 @@ class Selecteur {
     composerBalise() {
         var resultat, chances;
         resultat = "";
-        if (App.alea(4) > 0) {	// On met une balise
-            resultat += App.alea(this.balises).nom;
+        if (this.alea(4) > 0) {	// On met une balise
+            resultat += this.alea(this.balises).nom;
         }
-        if (App.alea(6) > 0) {	// On choisit entre une balise et un id
+        if (this.alea(6) > 0) {	// On choisit entre une balise et un id
             chances = 3;
-            while (App.alea(chances) === 0) {
-                resultat += "." + App.alea(this.classes).nom;
+            while (this.alea(chances) === 0) {
+                resultat += "." + this.alea(this.classes).nom;
                 chances *= 2;
             }
         } else {
-            resultat += "#" + App.alea(this.ids).nom;
+            resultat += "#" + this.alea(this.ids).nom;
         }
         if (resultat === "") {
             return this.composerBalise();
@@ -96,7 +129,7 @@ class Selecteur {
     }
     get signification() {
         var resultat;
-		Selecteur.traduire(this.contenu);
+		resultat = Selecteur.traduire(this.contenu);
         return resultat;
     }
     static traduire(selecteur) {
@@ -246,6 +279,25 @@ class Selecteur {
 		return resultat;
     }
 	static init() {
+		this.modes = {
+			selecteur: "Trouver le sélecteur",
+			signification: "Trouver la signification",
+			alea: "Surprise",
+		};
+		this.actions = {
+			facile: {label: "Facile", accesskey: "1", handler: () => {
+				return Selecteur.afficherQuestion(1);
+			}},
+			moyen: {label: "Moyen", accesskey: "2", handler: () => {
+				return Selecteur.afficherQuestion(2);
+			}},
+			difficile: {label: "Difficile", accesskey: "3", handler: () => {
+				return Selecteur.afficherQuestion(3);
+			}},
+			surprise: {label: "Surprise", accesskey: "0", handler: () => {
+				return Selecteur.afficherQuestion(0);
+			}},
+		};
 		this.prototype.balises = [
 			{nom: "*"}, {nom: "td"}, {nom: "div"}, {nom: "span"}, {nom: "strong"},
 			{nom: "em"}, {nom: "p"}, {nom: "li"}, {nom: "ol"}, {nom: "table"}, {nom: "h1"},
@@ -289,8 +341,65 @@ class Selecteur {
 			{nom: " "}, {nom: ">"}, {nom: "+"}, {nom: "~"}, {nom: ","}
 		];
 	}
+    alea(sujet) {
+        if (sujet instanceof Array) {
+        	return sujet[this.alea(sujet.length)];
+		} else {
+			return Math.floor(Math.random() * sujet);
+		}
+	}
+	static question() {
+		var resultat = document.createElement("div");
+		resultat.setAttribute("id", "question");
+		var label = resultat.appendChild(document.createElement("div"));
+		label.classList.add("label");
+		var span = label.appendChild(document.createElement("span"));
+		span.innerHTML = "Sélecteur";
+		var cellSelecteur = resultat.appendChild(document.createElement("div"));
+		cellSelecteur.classList.add("reponse");
+		cellSelecteur.classList.add("selecteur");
+		cellSelecteur.setAttribute("id", "selecteur");
+		resultat.selecteur = cellSelecteur.appendChild(document.createElement("div"));
+		var label = resultat.appendChild(document.createElement("div"));
+		label.classList.add("label");
+		var span = label.appendChild(document.createElement("span"));
+		span.innerHTML = "Signification";
+		var cellSignification = resultat.appendChild(document.createElement("div"));
+		cellSignification.classList.add("reponse");
+		cellSignification.classList.add("signification");
+		cellSignification.setAttribute("id", "signification");
+		resultat.signification = cellSignification.appendChild(document.createElement("div"));
+		return resultat;
+	}
+    static afficherQuestion(niveau) {
+		var question, mode;
+		var affichage = document.getElementById("affichage");
+		affichage.innerHTML = "";
+		question = affichage.appendChild(this.question());
+		if (document.getElementById("mode_selecteur").checked === true) {
+			mode = 0;
+		} else if (document.getElementById("mode_signification").checked === true) {
+			mode = 1;
+		} else {
+			mode = this.prototype.alea(2);//TODO
+		}
+		question.obj = new Selecteur(niveau);
+		if (mode === 1) {
+			question.selecteur.innerHTML = question.obj.contenu;
+		} else {
+			question.signification.innerHTML = question.obj.signification;
+		}
+		
+		var button = question.appendChild(document.createElement("button"));
+		button.setAttribute("for", "solution");
+		button.innerHTML = "Voir la solution";
+		button.addEventListener("click", this.afficherSolution);
+    }
+    static afficherSolution() {
+        var question;
+        question = document.getElementById("question");
+		question.selecteur.innerHTML = question.obj.contenu;
+		question.signification.innerHTML = question.obj.signification;
+	}
 }
 Selecteur.init();
-//var test = new Selecteur(3);
-//test.contenu = "li:not(.xyz):not(.abc):nth-child(8)";
-//console.log(test.contenu, test.specificite, test.complexite);

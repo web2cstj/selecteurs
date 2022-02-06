@@ -1,0 +1,70 @@
+@import "variables";
+// @import url('https://fonts.googleapis.com/css?family=Saira+Semi+Condensed:400,700,900&display=swap');
+@import "saira";
+@font-face {
+	font-family: smile;
+	src: url("../img/Smile2Me-Regular.ttf");
+}
+:root {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family:saira;
+	font-size: var(--font-size);
+}
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: var(--couleur-principale-foncee);
+}
+#app {
+	min-height: 100%;
+	display: grid;
+	grid-template-rows: auto 1fr;
+	& > header, & > footer {
+		background-color: transparent;
+	}
+	& > header {
+		order: -100;
+	}
+	& > footer {
+		order: 100;
+	}
+	& > .body {
+		flex: 1 0 0;
+	}
+}
+h1 {
+	color: var(--couleur-principale-pale);
+	font-family:saira;
+	font-size:4em;
+	text-align:center;
+	line-height: 1em;
+	margin: .25em;
+	font-weight: 900;
+	text-shadow: .05em .05em .1em #0008;
+}
+@import "options";
+span.balise {
+	font-family: "Courier New";
+}
+span.ainsi {
+	// font-size:smaller;
+	text-transform:uppercase;
+	font-weight: bold;
+}
+span.separateur {
+	color:#b81;
+}
+div.body {
+	--gap: 1rem;
+	display: grid;
+	gap: var(--gap);
+	padding: var(--gap);
+	grid-template-rows: auto 1fr;
+	form {
+		display: contents;
+	}
+}
+@import "question";

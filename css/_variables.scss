@@ -1,0 +1,40 @@
+:root {
+	--hue: 340;
+	--sat: 50%;
+	--font-size: 1.5vw;
+	--couleur-principale-pale: hsl(var(--hue), 100%, 95%);
+	--couleur-principale: hsl(var(--hue), var(--sat), 50%);
+	--couleur-principale-foncee: hsl(var(--hue), var(--sat), 20%);
+	--couleur-principale-grisatre: hsl(var(--hue), 25%, 73%);
+}
+@mixin button {
+	color: hsl(39, 100%, 50%);
+	flex: 1 0 0;
+	display: grid;
+	grid-auto-flow: column;
+	padding: 0 0.5rem;
+	align-items: center;
+	justify-items: center;
+	// align-content: center;
+	// justify-content: center;
+	// box-shadow: -0.05em -0.05em 0.1em rgba(255,255,255,.8), 0.05em 0.05em 0.1em rgba(0,0,0,.5);
+	color: var(--couleur-principale-foncee);
+	background-color: var(--couleur-principale-grisatre);
+	border-radius: 0.25rem;
+	line-height: 1em;
+	text-align: center;
+	font-weight: bold;
+	cursor: pointer;
+	&::before,
+	&::after {
+		content: "";
+	}
+}
+
+@mixin ecran {
+	border: solid 0.1em hsl(var(--hue), 33%, 30%);
+	padding: 1em;
+	border-radius: 0.5em;
+	background-color: #a8d3d3;
+	box-shadow: 0.05em 0.05em 0.15em rgba(0, 0, 0, 0.5) inset;
+}

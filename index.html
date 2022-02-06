@@ -4,35 +4,23 @@
 <head>
 	<title>Sélecteurs en direct</title>
 	<meta charset="utf-8" />
-	<script type="text/javascript" src="selecteurs.js"></script>
-	<link rel="stylesheet" type="text/css" href="selecteurs.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<!--	<script type="text/javascript" src="selecteurs.js"></script>-->
+	<script type="module">
+		import App from "./src/App.js";
+		App.load().then(data => {
+			App.main();
+		});
+	</script>
 </head>
 
 <body>
-	<h1>Pour s'exercer avec les sélecteurs</h1>
-	<form action="" onsubmit="return false;">
-		<fieldset>
-			<legend>Type de recherche</legend>
-			<div>
-				<input type="radio" name="mode" id="mode_selecteur" value="selecteur" />
-				<label for="mode_selecteur">Trouver le sélecteur</label>
-				<input type="radio" name="mode" id="mode_signification" value="signification" checked="checked" />
-				<label for="mode_signification">Trouver la signification</label>
-				<input type="radio" name="mode" id="mode_alea" value="alea" />
-				<label for="mode_alea">Surprise</label>
-			</div>
-		</fieldset>
-		<fieldset>
-			<legend>Niveau de difficulté</legend>
-			<div>
-				<label onclick="App.afficherQuestion(1)">Facile</label>
-				<label onclick="App.afficherQuestion(2)">Moyen</label>
-				<label onclick="App.afficherQuestion(3)">Difficile</label>
-				<label onclick="App.afficherQuestion(0)">Surprise</label>
-			</div>
-		</fieldset>
-		<div id="affichage"></div>
-	</form>
+	<div id="app">
+		<header>
+			<h1>Pour s'exercer avec les sélecteurs</h1>
+		</header>
+		<div class="body"></div>
+	</div>
 </body>
 
 </html>
