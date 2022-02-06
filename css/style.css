@@ -1,0 +1,722 @@
+:root {
+  --hue: 340;
+  --sat: 50%;
+  --font-size: 1.5vw;
+  --couleur-principale-pale: hsl(var(--hue), 100%, 95%);
+  --couleur-principale: hsl(var(--hue), var(--sat), 50%);
+  --couleur-principale-foncee: hsl(var(--hue), var(--sat), 20%);
+  --couleur-principale-grisatre: hsl(var(--hue), 25%, 73%);
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Regular"), local("Saira-Regular"), url(https://fonts.gstatic.com/s/saira/v4/memwYa2wxmKQyNkoTZMtUw.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Regular"), local("Saira-Regular"), url(https://fonts.gstatic.com/s/saira/v4/memwYa2wxmKQyNkpTZMtUw.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Regular"), local("Saira-Regular"), url(https://fonts.gstatic.com/s/saira/v4/memwYa2wxmKQyNknTZM.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Bold"), local("Saira-Bold"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGcaIYdcrgmVA.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Bold"), local("Saira-Bold"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGcaIYccrgmVA.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Bold"), local("Saira-Bold"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGcaIYScrg.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Black"), local("Saira-Black"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGkaoYdcrgmVA.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Black"), local("Saira-Black"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGkaoYccrgmVA.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: expanded;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Black"), local("Saira-Black"), url(https://fonts.gstatic.com/s/saira/v4/mem9Ya2wxmKQyNGkaoYScrg.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Condensed Regular"), local("SairaCondensed-Regular"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJROQgErUN8XuHNEtX81i9TmEkrvretFyIw.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Condensed Regular"), local("SairaCondensed-Regular"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJROQgErUN8XuHNEtX81i9TmEkrvrOtFyIw.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira Condensed Regular"), local("SairaCondensed-Regular"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJROQgErUN8XuHNEtX81i9TmEkrvoutF.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Condensed Bold"), local("SairaCondensed-Bold"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnGc5Q-K2fli0.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Condensed Bold"), local("SairaCondensed-Bold"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnGc5Q-a2fli0.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira Condensed Bold"), local("SairaCondensed-Bold"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnGc5Q962f.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Condensed Black"), local("SairaCondensed-Black"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnIcxQ-K2fli0.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Condensed Black"), local("SairaCondensed-Black"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnIcxQ-a2fli0.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira Condensed Black"), local("SairaCondensed-Black"), url(https://fonts.gstatic.com/s/sairacondensed/v5/EJRLQgErUN8XuHNEtX81i9TmEkrnIcxQ962f.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Regular"), local("SairaExtraCondensed-Regular"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFiOHYr-vcC7h8MklGBkrvmUG9rbpkisrTj50j05Cs.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Regular"), local("SairaExtraCondensed-Regular"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFiOHYr-vcC7h8MklGBkrvmUG9rbpkisrTj5kj05Cs.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Regular"), local("SairaExtraCondensed-Regular"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFiOHYr-vcC7h8MklGBkrvmUG9rbpkisrTj6Ej0.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Bold"), local("SairaExtraCondensed-Bold"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTrU23h1Aphim8.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Bold"), local("SairaExtraCondensed-Bold"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTrU23h1Qphim8.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Bold"), local("SairaExtraCondensed-Bold"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTrU23h2wph.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* vietnamese */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Black"), local("SairaExtraCondensed-Black"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTra2_h1Aphim8.woff2) format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Black"), local("SairaExtraCondensed-Black"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTra2_h1Qphim8.woff2) format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: "Saira";
+  font-stretch: condensed;
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local("Saira ExtraCondensed Black"), local("SairaExtraCondensed-Black"), url(https://fonts.gstatic.com/s/sairaextracondensed/v5/-nFvOHYr-vcC7h8MklGBkrvmUG9rbpkisrTra2_h2wph.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: smile;
+  src: url("../img/Smile2Me-Regular.ttf");
+}
+
+:root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: saira;
+  font-size: var(--font-size);
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--couleur-principale-foncee);
+}
+
+#app {
+  min-height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
+}
+
+#app > header, #app > footer {
+  background-color: transparent;
+}
+
+#app > header {
+  -webkit-box-ordinal-group: -99;
+      -ms-flex-order: -100;
+          order: -100;
+}
+
+#app > footer {
+  -webkit-box-ordinal-group: 101;
+      -ms-flex-order: 100;
+          order: 100;
+}
+
+#app > .body {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+}
+
+h1 {
+  color: var(--couleur-principale-pale);
+  font-family: saira;
+  font-size: 4em;
+  text-align: center;
+  line-height: 1em;
+  margin: .25em;
+  font-weight: 900;
+  text-shadow: .05em .05em .1em #0008;
+}
+
+.options {
+  --font-size: 1.5vw;
+  --taille-coche: 3em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  gap: 1em;
+}
+
+@media (min-aspect-ratio: 1 / 1) {
+  .options {
+    --font-size: 1.5vh;
+  }
+}
+
+.options > fieldset > div {
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+.options .bouton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 2.4rem;
+}
+
+.options .bouton input {
+  display: none;
+}
+
+.options .bouton label {
+  color: #ffa600;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  padding: 0 0.5rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  color: var(--couleur-principale-foncee);
+  background-color: var(--couleur-principale-grisatre);
+  border-radius: 0.25rem;
+  line-height: 1em;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  -ms-grid-columns: auto 1fr;
+      grid-template-columns: auto 1fr;
+  gap: 0.5ch;
+}
+
+.options .bouton label::before, .options .bouton label::after {
+  content: "";
+}
+
+.options .bouton label::after {
+  content: none;
+}
+
+.options .bouton :checked + label::before {
+  content: "\2611";
+  content: "\2714";
+}
+
+.options .modes > div {
+  font-size: 0.9em;
+}
+
+.options .modes > div label {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: transparent;
+}
+
+.options .modes > div label::before {
+  content: "";
+  background-color: hsl(var(--hue), 100%, 90%);
+  -webkit-box-shadow: inset 1px 1px 1px black;
+          box-shadow: inset 1px 1px 1px black;
+  font-size: var(--taille-coche);
+  width: 0.8em;
+  height: 0.8em;
+  text-indent: 0.2ch;
+  line-height: 0.45em;
+  text-align: center;
+  border-radius: 100%;
+}
+
+.options fieldset {
+  text-align: center;
+  background-color: var(--couleur-principale-pale);
+  border: none;
+  margin: 0;
+}
+
+.options fieldset > legend {
+  color: var(--couleur-principale-foncee);
+  font-weight: bold;
+  font-style: italic;
+  margin: auto;
+  background-color: inherit;
+  padding: 0 1ch;
+  margin-top: -1em;
+  padding-top: 0.25em;
+  border-radius: 0.25em;
+  border: 1px solid black;
+  border-bottom: none;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  line-height: 1;
+}
+
+.options fieldset > div {
+  display: -ms-grid;
+  display: grid;
+  gap: 0.5ch 1ch;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.options .actions {
+  --taille-icone: 1.7em;
+}
+
+.options .actions > div {
+  font-size: 1.7em;
+}
+
+.options .actions label {
+  -webkit-box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
+          box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
+}
+
+.options .actions label::before {
+  font-weight: normal;
+  text-shadow: 0 0px 0px, 0 0px 0px;
+  font-family: smile;
+  background-color: transparent;
+  width: auto;
+  height: auto;
+  -webkit-animation-name: bercer;
+          animation-name: bercer;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+
+.options .actions label:hover {
+  margin-left: -0.05em;
+  margin-top: -0.05em;
+  margin-right: 0.05em;
+  margin-bottom: 0.05em;
+  -webkit-box-shadow: 0.15em 0.15em 0.3em rgba(0, 0, 0, 0.5);
+          box-shadow: 0.15em 0.15em 0.3em rgba(0, 0, 0, 0.5);
+}
+
+.options .actions label:hover::before {
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+
+.options .actions #action_facile > label::before {
+  font-size: calc(1.15 * var(--taille-icone));
+  content: "O";
+}
+
+.options .actions #action_moyen > label::before {
+  font-size: calc(1 * var(--taille-icone));
+  content: "I";
+}
+
+.options .actions #action_difficile > label::before {
+  font-size: calc(1.15 * var(--taille-icone));
+  content: "0";
+}
+
+.options .actions #action_surprise > label::before {
+  font-size: calc(1.4 * var(--taille-icone));
+  content: "f";
+}
+
+@-webkit-keyframes bercer {
+  0% {
+    -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+  }
+  100% {
+    -webkit-transform: rotate(-30deg);
+            transform: rotate(-30deg);
+  }
+}
+
+@keyframes bercer {
+  0% {
+    -webkit-transform: rotate(30deg);
+            transform: rotate(30deg);
+  }
+  100% {
+    -webkit-transform: rotate(-30deg);
+            transform: rotate(-30deg);
+  }
+}
+
+span.balise {
+  font-family: "Courier New";
+}
+
+span.ainsi {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+span.separateur {
+  color: #b81;
+}
+
+div.body {
+  --gap: 1rem;
+  display: -ms-grid;
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
+  -ms-grid-rows: auto 1fr;
+      grid-template-rows: auto 1fr;
+}
+
+div.body form {
+  display: contents;
+}
+
+#question {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: max-content 1fr;
+      grid-template-columns: -webkit-max-content 1fr;
+      grid-template-columns: max-content 1fr;
+  -ms-grid-rows: 10rem 1fr 2rem;
+      grid-template-rows: 10rem 1fr 2rem;
+  gap: var(--gap) 0;
+  height: 100%;
+}
+
+#question button {
+  color: #ffa600;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 0px;
+          flex: 1 0 0;
+  display: -ms-grid;
+  display: grid;
+  grid-auto-flow: column;
+  padding: 0 0.5rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  color: var(--couleur-principale-foncee);
+  background-color: var(--couleur-principale-grisatre);
+  border-radius: 0.25rem;
+  line-height: 1em;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  grid-row: span -1;
+  grid-column: 1 / -1;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  width: 20em;
+  display: block;
+  opacity: 0.5;
+}
+
+#question button::before, #question button::after {
+  content: "";
+}
+
+#question button:hover {
+  opacity: 1;
+}
+
+#question .label {
+  background-color: var(--couleur-principale);
+  color: var(--couleur-principale-pale);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 1em 0 0 1em;
+  width: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#question .label span {
+  display: block;
+  white-space: nowrap;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+
+#question .reponse {
+  background-color: var(--couleur-principale);
+  padding: 1rem;
+  border-radius: 0 1rem 1rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  background-color: var(--couleur-principale-pale);
+  border: 4px solid var(--couleur-principale);
+}
+
+#selecteur {
+  font-size: 3em;
+  line-height: 1;
+}
+
+#signification {
+  font-size: 2.2em;
+}
+/*# sourceMappingURL=style.css.map */

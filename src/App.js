@@ -1,6 +1,5 @@
 import Selecteur from "./Selecteur.js";
 
-/*jslint browser:true,esnext:true */
 export default class App {
 	static main() {
 		this.app = document.getElementById("app");

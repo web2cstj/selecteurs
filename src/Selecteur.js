@@ -1,4 +1,3 @@
-/*jslint browser:true,esnext:true */
 export default class Selecteur {
 	constructor(niveau) {
 		niveau = parseInt(niveau) || (this.alea(3) + 1);
@@ -53,6 +52,7 @@ export default class Selecteur {
 		for (let k in this.modes) {
 			div.appendChild(this.dom_radio("mode", k, this.modes[k]));
 		}
+		div.querySelector("input[value=alea]").checked = true;
 		return fieldset;
 	}
 
