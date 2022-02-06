@@ -654,7 +654,7 @@ div.body form {
   -ms-grid-column-align: center;
       justify-self: center;
   border: none;
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--couleur-principale-pale);
   width: 20em;
   display: block;
   opacity: 0.5;
